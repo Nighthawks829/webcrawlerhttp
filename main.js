@@ -1,15 +1,17 @@
-const { normalizeURL, getURLsFromHTML } = require("./crawl.js")
+const { crawlPage } = require('./crawl.js')
 
-const inputHTMLBody = `
-    <html>
-        <body>
-            <a href="https://blog.boot.dev>
-                Boot.dev Blog
-            </a>
-        </body>
-    </html> 
-    `
-const inputBaseURL = "https://blog.boot.dev"
+function main() {
+    if (process.argv.length < 3) {
+        console.log("no website provided")
+        process.exit(1)
+    }
+    if (process.argv.length > 3) {
+        console.log("too many command line args")
+        process.exit(1)
+    }
+    const baseURL = process.argv[2]
+    console.log(`starting crawl of ${baseURL}`)
+    crawlPage(baseURL)
+}
 
-
-const output = getURLsFromHTML(inputHTMLBody,inputBaseURL)
+main()
